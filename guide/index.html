@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Futuristic Guide + Embedded IDE · Standalone index.html</title>
+  <meta name="theme-color" content="#0b0f1a" />
+  <style>
+    :root{
+      --bg:#0b0f1a; --panel:#0f1424; --muted:#7c90a9; --text:#e6f1ff; --accent:#65d6ff; --glow:#9efff7;
+      --ring: 0 0 0 2px rgba(101,214,255,.3), 0 0 30px rgba(101,214,255,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1000px 600px at 20% -10%, rgba(101,214,255,.08), transparent 40%),
+                       radial-gradient(900px 500px at 110% 10%, rgba(158,255,247,.06), transparent 45%),
+                       radial-gradient(700px 400px at 50% 120%, rgba(101,214,255,.05), transparent 50%),
+                       #0b0f1a;color:var(--text);font:14px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, Apple Color Emoji, Segoe UI Emoji;
+         overflow:hidden}
+    header{position:relative;z-index:2;display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.8rem 1rem;border-bottom:1px solid rgba(101,214,255,.12);background:linear-gradient(180deg, rgba(11,15,26,.9), rgba(11,15,26,.6));backdrop-filter: blur(6px)}
+    header .title{display:flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:.3px}
+    header .title .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--glow)}
+    header .actions{display:flex;gap:.5rem;align-items:center}
+    .btn{appearance:none;border:1px solid rgba(101,214,255,.35);background:rgba(15,20,36,.6);color:var(--text);padding:.5rem .7rem;border-radius:.7rem;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem}
+    .btn:hover{box-shadow:var(--ring)}
+    .btn:active{transform:translateY(1px)}.layout{position:relative;display:grid;grid-template-columns: minmax(320px, 1fr) minmax(400px, 1.2fr);gap:1px;height:calc(100% - 56px);background:rgba(101,214,255,.12)}
+.panel{background:var(--panel);height:100%;overflow:auto}
+
+.guide{padding:1.2rem 1rem 2rem}
+.guide h1{margin:.2rem 0 .8rem;font-size:1.1rem;color:#d9eeff}
+.guide .meta{color:var(--muted);font-size:.85rem;margin-bottom:1rem}
+.guide pre{white-space:pre-wrap;background:rgba(8,12,24,.66);border:1px solid rgba(101,214,255,.18);padding:1rem;border-radius:.8rem}
+
+.ide-toolbar{display:flex;gap:.5rem;align-items:center;padding:.6rem;background:linear-gradient(180deg, rgba(15,20,36,.9), rgba(15,20,36,.7));border-bottom:1px solid rgba(101,214,255,.12)}
+#editor{width:100%;height:calc(100% - 44px)}
+
+.footer{position:absolute;bottom:.5rem;right:.75rem;color:var(--muted);font-size:.8rem;opacity:.8}
+
+@media (max-width: 980px){
+  .layout{grid-template-columns:1fr;}
+  #editor{height:50vh}
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title"><span class="dot" aria-hidden="true"></span> Futuristic Guide + Embedded IDE</div>
+    <div class="actions">
+      <button class="btn" id="toggleSplit">Toggle Split</button>
+      <button class="btn" id="copyBtn">Copy All</button>
+      <button class="btn" id="downloadBtn">Download .md</button>
+      <button class="btn" id="saveBtn">Save</button>
+      <button class="btn" id="loadBtn">Load</button>
+    </div>
+  </header>  <main class="layout">
+    <section class="panel guide" id="guide">
+      <h1>Guide (verbatim)</h1>
+      <div class="meta">Standalone `index.html` wisdom • online‑first with offline fallback • neon noir edition</div>
+      <pre id="guideText">Here’s the landscape, plain and clear.  A standalone index.html can’t run most heavy AI models locally because the browser sandbox forbids raw system access and GPU acceleration without a backend. But there are several ways to give it brains:
+
+
+---
+
+1. Works Entirely Offline (Browser-Local)
+
+These run inside the HTML using JavaScript, WebAssembly, or ONNX runtime:
+
+TensorFlow.js or ONNX Runtime Web – good for small/medium models (image recognition, text classification, speech commands).
+
+WebLLM / WebGPT / MLC.ai – runs compact LLMs (like Llama-2-7B-Chat, Phi-2, Mistral-7B-Instruct) in the browser via WebGPU. It’s the leading frontier for pure standalone AI.
+
+Transformers.js (by HuggingFace) – loads quantized models (distilBERT, Whisper tiny, etc.) directly into WebAssembly.
+
+TFLite Web – for mobile-style neural nets like object detection, gesture recognition, or keyword spotting.
+
+LangChain.js (browser build) – chains small models and reasoning steps without servers.
+
+Local vector search – via faiss-wasm, annoy.js, or lunr.js for semantic or keyword retrieval.
+
+
+
+---
+
+2. Online-First, Offline-Fallback
+
+Your HTML can fetch models or responses from the cloud if available, then cache everything for reuse:
+
+OpenAI API, Anthropic Claude, Google Gemini, Mistral API, Cohere, or Ollama (local daemon) – you can call these through fetch requests or WebSocket streams.
+
+WebLLM + Service Worker caching – best hybrid: loads model weights once, stores them in IndexedDB, and then works offline.
+
+REST-style inference bridges – e.g., https://api-inference.huggingface.co/models/... with a service worker that caches results for later.
+
+Browser-based agent orchestration – small LLM locally; calls larger cloud models when needed, like a “tiered brain.”
+
+
+
+---
+
+3. Readable if Uploaded (for a static site)
+
+If you upload to GitHub Pages, IPFS, or Arweave:
+
+Browsers can read and run the same JS/HTML with no backend.
+
+You can embed models as .bin or .json files in /models/ and load via fetch() or indexedDB.
+
+Use a manifest file listing model names, hashes, and paths for dynamic loading.
+
+Always include a Service Worker to handle offline caching, model prefetching, and version control.
+
+
+
+---
+
+4. Ideal Stack for You
+
+Since your mission is online-first, offline-fallback, your golden combination is:
+
+WebLLM + Service Worker + IndexedDB + dynamic manifest.json + (optional) cloud inference fallback
+
+This lets your site:
+
+1. Run small models locally.
+
+
+2. Pull large-scale reasoning from the web.
+
+
+3. Store results, conversations, and model caches offline.
+
+
+4. Stay functional even without internet.
+
+
+
+
+---
+
+If you’d like, I can build a ready-to-run index.html that includes:
+
+WebLLM integration
+
+a Monaco-style code editor
+
+service worker for model caching
+
+a switch to use OpenAI or Claude online
+
+a text area for prompt/response
+
+local save history via IndexedDB
+
+
+Would you like me to prepare that full template next? </pre> </section>
+
+<section class="panel">
+  <div class="ide-toolbar">
+    <span style="opacity:.8">Embedded IDE (Monaco)</span>
+  </div>
+  <div id="editor" aria-label="Monaco Editor"></div>
+</section>
+
+  </main>  <div class="footer">Made with starlight ✨ — Works online-first; falls back gracefully.</div>  <!-- Monaco loader -->  <script>
+    // Seed content from the guide (verbatim)
+    const seed = document.getElementById('guideText').textContent;
+
+    // Persist + restore
+    const KEY = 'futuristic-guide-md';
+    const save = () => localStorage.setItem(KEY, window.editor?.getValue?.() || seed);
+    const load = () => localStorage.getItem(KEY) || seed;
+
+    document.getElementById('saveBtn').addEventListener('click', ()=>{save(); flash('Saved to localStorage');});
+    document.getElementById('loadBtn').addEventListener('click', ()=>{ if(window.editor){ editor.setValue(load()); flash('Loaded from localStorage'); } });
+
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      const text = window.editor?.getValue?.() || seed;
+      try{ await navigator.clipboard.writeText(text); flash('Copied to clipboard'); } catch(e){ flash('Copy failed'); }
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([window.editor?.getValue?.() || seed], {type:'text/markdown'});
+      const url = URL.createObjectURL(blob);
+      const a = Object.assign(document.createElement('a'), {href:url, download:'futuristic-guide.md'});
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // Split toggle
+    const layout = document.querySelector('.layout');
+    let split = true;
+    document.getElementById('toggleSplit').addEventListener('click', ()=>{
+      split = !split;
+      layout.style.gridTemplateColumns = split ? 'minmax(320px, 1fr) minmax(400px, 1.2fr)' : '1fr';
+      document.getElementById('editor').style.height = split ? 'calc(100% - 44px)' : '60vh';
+    });
+
+    // Tiny HUD toaster
+    function flash(msg){
+      const n = document.createElement('div');
+      n.textContent = msg; n.style.position='fixed'; n.style.bottom='1rem'; n.style.left='50%'; n.style.transform='translateX(-50%)';
+      n.style.background='rgba(15,20,36,.9)'; n.style.border='1px solid rgba(101,214,255,.35)'; n.style.padding='.5rem .8rem'; n.style.borderRadius='.6rem'; n.style.boxShadow='0 0 20px rgba(101,214,255,.2)';
+      n.style.zIndex=9999; document.body.appendChild(n); setTimeout(()=>n.remove(),1700);
+    }
+  </script>  <!-- Load Monaco via AMD loader (online-first) -->  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js" integrity="sha384-DfO2r8o9W2y1M8u6kSrb9O8f4d0h6oR+9xk7c9v8kqBzUu7G1u6w+4b6CkqL8n3D" crossorigin="anonymous"></script>  <script>
+    window.require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
+    window.require(['vs/editor/editor.main'], function(){
+      window.editor = monaco.editor.create(document.getElementById('editor'), {
+        value: load(),
+        language: 'markdown',
+        theme: 'vs-dark',
+        wordWrap: 'on',
+        minimap: { enabled: false },
+        fontSize: 14,
+        fontLigatures: true,
+        automaticLayout: true,
+      });
+    });
+  </script>  <!-- Minimal offline support: register an ephemeral Service Worker -->  <script>
+    if ('serviceWorker' in navigator) {
+      const swCode = `self.addEventListener('install', e=>{ self.skipWaiting(); });
+self.addEventListener('activate', e=>{ e.waitUntil(clients.claim()); });
+self.addEventListener('fetch', e=>{ /* pass-through; page stays available in tabs */ });`;
+      const blob = new Blob([swCode], {type:'text/javascript'});
+      const swURL = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swURL).catch(()=>{});
+    }
+  </script></body>
+</html>
